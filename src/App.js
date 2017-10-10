@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Service from './components/Service'
 import ClientContainer from './components/ClientContainer'
-import RateForm from './components/RateForm'
+import RatesForm from './components/RatesForm'
 
 const services = [
   {name: 'A1 VM - EU West'},
@@ -23,12 +23,13 @@ const clients = [
 ]
 
 class App extends Component {
+
   render() {
     return (
       <div className="App">
         <Service services={services} />
         <ClientContainer clients={clients} />
-        <RateForm />
+        <RatesForm />
       </div>
     );
   }
