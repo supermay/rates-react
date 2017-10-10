@@ -1,18 +1,32 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Service from './components/Service'
+import ClientContainer from './components/ClientContainer'
+
+const services = [
+  {name: 'A1 VM - EU West'},
+  {name: 'A1 VM - EU North'},
+  {name: 'C1 VM - EU North'},
+  {name: 'C1 VM - EU East'}
+]
+
+const clients = [
+  {name: 'client1'},
+  {name: 'client2'},
+  {name: 'client3'},
+  {name: 'client4'},
+  {name: 'client5'},
+  {name: 'client6'},
+  {name: 'client7'},
+  {name: 'client8'},
+  {name: 'client9'}
+]
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <Service services={services} />
+        <ClientContainer clients={clients} />
       </div>
     );
   }
