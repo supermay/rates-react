@@ -9,20 +9,22 @@ class RatesContainer extends PureComponent {
 
   addRate = (rate) => {
     const rates = [...this.state.rates]
-    const timestamp = Date.now();
     rates.push(rate);
     this.setState({rates});
   }
 
   updateRate = (key,updateRate) => {
-    const rates = {...this.state.rates}
+    const rates = [...this.state.rates]
     rates[key] = updateRate
     this.setState({rates})
   }
 
   removeRate = (key) => {
-    const rates = {...this.state.rates}
-
+    let rates = [...this.state.rates]
+    rates = rates.filter((value, index) => index !== Number(key))
+    console.log(key);
+    console.log(rates);
+    this.setState({rates});
   }
 
   render() {
@@ -38,6 +40,7 @@ class RatesContainer extends PureComponent {
           <Rates
             rates={this.state.rates}
             updateRate={this.updateRate}
+            removeRate={this.removeRate}
           />
           <AddRateForm
             addRate={this.addRate}
