@@ -1,19 +1,29 @@
 import React, { PureComponent } from 'react';
 import AddRateForm from './AddRateForm';
+import Rates from './Rates';
 
-class RatesForm extends PureComponent {
+class RatesContainer extends PureComponent {
   state = {
-    rates: {}
+    rates: []
   }
 
   addRate = (rate) => {
-    const rates = {...this.state.rates}
+    const rates = [...this.state.rates]
     const timestamp = Date.now();
-    rates[`rate-${timestamp}`] = rate;
+    rates.push(rate);
     this.setState({rates});
   }
 
+  updateRate = (key,updateRate) => {
+    const rates = {...this.state.rates}
+    rates[key] = updateRate
+    this.setState({rates})
+  }
 
+  removeRate = (key) => {
+    const rates = {...this.state.rates}
+
+  }
 
   render() {
     return (
@@ -25,6 +35,10 @@ class RatesForm extends PureComponent {
         <p>
           Billing
         </p>
+          <Rates
+            rates={this.state.rates}
+            updateRate={this.updateRate}
+          />
           <AddRateForm
             addRate={this.addRate}
             rates={this.state.rates}
@@ -35,4 +49,4 @@ class RatesForm extends PureComponent {
   }
 }
 
-export default RatesForm
+export default RatesContainer
