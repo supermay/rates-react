@@ -30,9 +30,11 @@ class RatesSection extends PureComponent {
 
   removeRate = (key) => {
     let rates = [...this.state.rates]
-    rates = rates.filter((value, index) => index !== Number(key))
-    console.log(key);
-    console.log(rates);
+    rates = rates.filter((value, index) => {
+      return index !== Number(key)
+    })
+    if(key===0 && rates.length > 1){rates[0].min=0}
+    if(key!==0 && key > rates.length){rates[key].min=Number(rates[key-1].max)+1}
     this.setState({rates});
   }
 
