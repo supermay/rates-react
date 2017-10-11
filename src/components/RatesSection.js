@@ -11,6 +11,7 @@ class RatesSection extends PureComponent {
   state = {
     visible: false,
     rates: this.props.rates,
+    clickAdd: false,
   }
 
   addRate = (rate) => {
@@ -44,6 +45,11 @@ class RatesSection extends PureComponent {
     this.setState({visible: !this.state.visible})
   }
 
+  handleClick = () => {
+    this.setState({clickAdd: !this.state.clickAdd})
+    console.log('Add clicked!')
+  }
+
   render() {
     return (
       <div className="rate-form">
@@ -60,11 +66,13 @@ class RatesSection extends PureComponent {
             updateRate={this.updateRate}
             removeRate={this.removeRate}
           />
+          <button onClick={(e) => this.handleClick(e)}>+</button>
+          { this.state.clickAdd &&
           <AddRateForm
             rates={this.state.rates}
             updateRate={this.updateRate}
             addRate={this.addRate}
-          />
+          />}
         <button>Submit</button>
       </div>
     )
