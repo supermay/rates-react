@@ -54,6 +54,8 @@ class RatesSection extends PureComponent {
     return (
       <div className="rate-form">
         <p>Here is the form:</p>
+        <p>{this.props.service}</p>
+        <p>{this.props.client ? this.props.client : 'Global'}</p>
         <label>Effective date:  </label>
         <DayPickerInput placeholder="DD/MM/YYYY" format="DD/MM/YYYY" />
         <button onClick={this.pickDay}>Add Revision</button>

@@ -16,7 +16,12 @@ class ClientItem extends PureComponent {
     return (
       <div className="service-item">
         <p onClick={(e) => this.handleClick(e)}>{this.props.name}</p>
-        {this.state.visible && <RatesSection rates={this.props.rates}/>}
+        {this.state.visible &&
+          <RatesSection
+            rates={this.props.rates}
+            service={this.props.service}
+            client={this.props.name}
+          />}
       </div>
     )
   }
