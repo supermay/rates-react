@@ -19,7 +19,7 @@ class AddRateForm extends PureComponent {
 
   render() {
     const { rates } = this.props;
-    const isFirst = rates.length === 0 
+    const isFirst = rates.length === 0 || undefined
     const first = isFirst ? 0 : (Number(rates[rates.length-1].max)+1)
     // const {max, unitPrice, intervalPrice } = this.state
     // const total = Number(max * unitPrice) + Number(intervalPrice)

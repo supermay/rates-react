@@ -2,29 +2,18 @@ import React, { PureComponent } from 'react';
 import AddRateForm from './AddRateForm';
 import Rates from './Rates';
 
+import DayPicker from 'react-day-picker';
+import DayPickerInput from "react-day-picker/DayPickerInput";
+import 'react-day-picker/lib/style.css';
+
+
 class RatesContainer extends PureComponent {
   state = {
-    rates: []
+    visible: false
   }
-
-  addRate = (rate) => {
-    const rates = [...this.state.rates]
-    rates.push(rate);
-    this.setState({rates});
-  }
-
-  updateRate = (key,updateRate) => {
-    const rates = [...this.state.rates]
-    rates[key] = updateRate
-    this.setState({rates})
-  }
-
-  removeRate = (key) => {
-    let rates = [...this.state.rates]
-    rates = rates.filter((value, index) => index !== Number(key))
-    console.log(key);
-    console.log(rates);
-    this.setState({rates});
+  
+  showRatesSection = (index) => {
+    this.setState({visible: !this.state.visible})
   }
 
   render() {
@@ -32,19 +21,20 @@ class RatesContainer extends PureComponent {
       <div className="rate-form">
         <p>Here is the form:</p>
         <label>Effective date:  </label>
-        <input type="text" placeholder='date'/>
-        <button>Add Revision</button>
+        <DayPickerInput placeholder="DD/MM/YYYY" format="DD/MM/YYYY" />
+        <button onClick={this.pickDay}>Add Revision</button>
+        { this.state.visible && <DayPickerInput placeholder="DD/MM/YYYY" format="DD/MM/YYYY" />}
         <p>
           Billing
         </p>
           <Rates
             rates={this.state.rates}
-            updateRate={this.updateRate}
-            removeRate={this.removeRate}
+            updateRate={this.props.updateRate}
+            removeRate={this.props.removeRate}
           />
           <AddRateForm
-            addRate={this.addRate}
-            rates={this.state.rates}
+            addRate={this.props.addRate}
+            rates={this.props.rates}
           />
         <button>Submit</button>
       </div>
