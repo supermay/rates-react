@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 
-class Rates extends PureComponent {
+class RatesContainer extends PureComponent {
   handleEvent = (e, index) => {
     const rate = this.props.rates[index];
     const updatedRate = {
@@ -35,4 +35,4 @@ class Rates extends PureComponent {
   }
 }
 
-export default Rates
+export default RatesContainer

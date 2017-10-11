@@ -1,16 +1,16 @@
 import React, { PureComponent } from 'react';
 import AddRateForm from './AddRateForm';
-import Rates from './Rates';
+import RatesContainer from './RatesContainer';
 
-import DayPicker from 'react-day-picker';
+// import DayPicker from 'react-day-picker';
 import DayPickerInput from "react-day-picker/DayPickerInput";
 import 'react-day-picker/lib/style.css';
 
 
 class RatesSection extends PureComponent {
   state = {
-    visible: false
-    rates: [],
+    visible: false,
+    rates: this.props.rates,
   }
 
   addRate = (rate) => {
@@ -49,14 +49,14 @@ class RatesSection extends PureComponent {
         <p>
           Billing
         </p>
-          <Rates
+          <RatesContainer
             rates={this.state.rates}
             updateRate={this.updateRate}
             removeRate={this.removeRate}
           />
           <AddRateForm
+            rates={this.state.rates}
             addRate={this.addRate}
-            rates={this.rates}
           />
         <button>Submit</button>
       </div>

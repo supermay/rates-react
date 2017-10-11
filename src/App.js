@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 import Service from './components/Service'
 
-const rates = []
-
 const clients = [
-  {name: 'client1', visible: false, rates: Object.assign({},rates)},
-  {name: 'client2', visible: false, rates: Object.assign({},rates)},
-  {name: 'client3', visible: false, rates: Object.assign({},rates)},
-  {name: 'client4', visible: false, rates: Object.assign({},rates)},
-  {name: 'client5', visible: false, rates: Object.assign({},rates)},
+  {name: 'client1', visible: false, rates: []},
+  {name: 'client2', visible: false, rates: []},
+  {name: 'client3', visible: false, rates: []},
+  {name: 'client4', visible: false, rates: []},
+  {name: 'client5', visible: false, rates: []},
 ]
 
 const services = [
@@ -24,7 +22,6 @@ class App extends Component {
       <div className="App">
         <Service
           services={services}
-          clients={clients}
         />
       </div>
     );
