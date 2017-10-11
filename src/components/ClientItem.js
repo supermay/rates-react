@@ -21,6 +21,7 @@ class ClientItem extends PureComponent {
             rates={this.props.rates}
             service={this.props.service}
             client={this.props.name}
+            override={this.props.override}
           />}
       </div>
     )

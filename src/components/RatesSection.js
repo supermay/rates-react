@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import AddRateForm from './AddRateForm';
 import RatesContainer from './RatesContainer';
-import RatesPageTitle from './RatesPageTitle';
 
 // import DayPicker from 'react-day-picker';
 import DayPickerInput from "react-day-picker/DayPickerInput";

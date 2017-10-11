@@ -16,18 +16,41 @@ const global = [
 ]
 
 const services = [
-  {name: 'A1 VM - EU West', global: global.map(rate => Object.assign({},rate)), clients: clients.map(client => Object.assign({},client))},
-  {name: 'A1 VM - EU North', global: global.map(rate => Object.assign({},rate)), clients: clients.map(client => Object.assign({},client))},
-  {name: 'C1 VM - EU North', global: global.map(rate => Object.assign({},rate)), clients: clients.map(client => Object.assign({},client))},
-  {name: 'C1 VM - EU East',  global: global.map(rate => Object.assign({},rate)), clients: clients.map(client => Object.assign({},client))}
+  {name: 'A1 VM - EU West',  visible: false, global: global.map(rate => Object.assign({},rate)), clients: clients.map(client => Object.assign({},client))},
+  {name: 'A1 VM - EU North', visible: false, global: global.map(rate => Object.assign({},rate)), clients: clients.map(client => Object.assign({},client))},
+  {name: 'C1 VM - EU North', visible: false, global: global.map(rate => Object.assign({},rate)), clients: clients.map(client => Object.assign({},client))},
+  {name: 'C1 VM - EU East', visible: false, global: global.map(rate => Object.assign({},rate)), clients: clients.map(client => Object.assign({},client))}
 ]
 
 class App extends Component {
+  state = {
+    services
+  }
+
+  selectService = (index) => {
+    if(this.state.services[index].visible) {
+      this.setState({
+        services: this.state.services.map((v,i) => {
+          return {
+            ...v, visible: false
+          }})
+      })
+    } else {
+      this.setState({
+        services: this.state.services.map((v,i) => {
+          return {
+            ...v, visible: i === index
+          }})
+      })
+    }
+  }
+
   render() {
     return (
       <div className="App">
         <Service
-          services={services}
+          services={this.state.services}
+          selectService={this.selectService}
         />
       </div>
     );
