@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import Client from './Client'
-import RatesSection from './RatesSection'
+import RatesPage from './RatesPage'
 
 class ServiceItem extends PureComponent {
   state = {
@@ -18,8 +18,8 @@ class ServiceItem extends PureComponent {
     return (
       <div className="service-item">
         <p onClick={(e) => this.handleClick(e)}>{name}</p>
+        {this.state.visible && <RatesPage rates={this.props.global} service={name}/> }
         {this.state.visible && <Client clients={clients} service={name}/>}
-        {this.state.visible && <RatesSection rates={this.props.global} service={name}/> }
       </div>
     )
   }

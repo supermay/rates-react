@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import RatesSection from './RatesSection';
+import RatesPage from './RatesPage';
 
 class ClientItem extends PureComponent {
   state = {
@@ -17,7 +17,7 @@ class ClientItem extends PureComponent {
       <div className="service-item">
         <p onClick={(e) => this.handleClick(e)}>{this.props.name}</p>
         {this.state.visible &&
-          <RatesSection
+          <RatesPage
             rates={this.props.rates}
             service={this.props.service}
             client={this.props.name}

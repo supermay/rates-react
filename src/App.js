@@ -12,7 +12,7 @@ const clients = [
 const global = [
   {min:0, max: 25, unitPrice: 1.00, intervalPrice: 0.00},
   {min:26, max: 100, unitPrice: 0.50, intervalPrice: 10.00},
-  {min:100, max: '∞', unitPrice: 0.25, intervalPrice: 0.00},
+  {min:101, max: '∞', unitPrice: 0.25, intervalPrice: 0.00},
 ]
 
 const services = [

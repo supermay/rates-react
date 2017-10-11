@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import AddRateForm from './AddRateForm';
 import RatesContainer from './RatesContainer';
+import RatesPageTitle from './RatesPageTitle';
 
 // import DayPicker from 'react-day-picker';
 import DayPickerInput from "react-day-picker/DayPickerInput";
@@ -54,8 +55,6 @@ class RatesSection extends PureComponent {
     return (
       <div className="rate-form">
         <p>Here is the form:</p>
-        <p>{this.props.service}</p>
-        <p>{this.props.client ? this.props.client : 'Global'}</p>
         <label>Effective date:  </label>
         <DayPickerInput placeholder="DD/MM/YYYY" format="DD/MM/YYYY" />
         <button onClick={this.pickDay}>Add Revision</button>
