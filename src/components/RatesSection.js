@@ -22,6 +22,9 @@ class RatesSection extends PureComponent {
   updateRate = (key,updateRate) => {
     const rates = [...this.state.rates]
     rates[key] = updateRate
+    if(key!==rates.length-1){
+      rates[key+1].min = Number(rates[key].max)+1
+    }
     this.setState({rates})
   }
 
