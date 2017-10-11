@@ -7,11 +7,33 @@ import DayPickerInput from "react-day-picker/DayPickerInput";
 import 'react-day-picker/lib/style.css';
 
 
-class RatesContainer extends PureComponent {
+class RatesSection extends PureComponent {
   state = {
     visible: false
+    rates: [],
   }
-  
+
+  addRate = (rate) => {
+    const rates = [...this.state.rates]
+    rates.push(rate);
+    this.setState({rates});
+  }
+
+  updateRate = (key,updateRate) => {
+    const rates = [...this.state.rates]
+    rates[key] = updateRate
+    this.setState({rates})
+  }
+
+  removeRate = (key) => {
+    let rates = [...this.state.rates]
+    rates = rates.filter((value, index) => index !== Number(key))
+    console.log(key);
+    console.log(rates);
+    this.setState({rates});
+  }
+
+
   showRatesSection = (index) => {
     this.setState({visible: !this.state.visible})
   }
@@ -29,12 +51,12 @@ class RatesContainer extends PureComponent {
         </p>
           <Rates
             rates={this.state.rates}
-            updateRate={this.props.updateRate}
-            removeRate={this.props.removeRate}
+            updateRate={this.updateRate}
+            removeRate={this.removeRate}
           />
           <AddRateForm
-            addRate={this.props.addRate}
-            rates={this.props.rates}
+            addRate={this.addRate}
+            rates={this.rates}
           />
         <button>Submit</button>
       </div>
@@ -42,4 +64,4 @@ class RatesContainer extends PureComponent {
   }
 }
 
-export default RatesContainer
+export default RatesSection

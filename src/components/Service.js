@@ -1,11 +1,12 @@
 import React, { PureComponent } from 'react';
+import ServiceItem from './ServiceItem'
 
 class Service extends PureComponent {
   render() {
     return (
       <div className="service">
         <p>service</p>
-        <ul>{this.props.services.map((service,index)=> <li key={index}>{service.name}</li>)}</ul>
+        {this.props.services.map((service,index)=> <ServiceItem key={index} {...service} />)}
       </div>
     )
   }
