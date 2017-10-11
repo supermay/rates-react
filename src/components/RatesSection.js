@@ -33,6 +33,7 @@ class RatesSection extends PureComponent {
     rates = rates.filter((value, index) => {
       return index !== Number(key)
     })
+    console.log(rates)
     if(key===0 && rates.length > 1){rates[0].min=0}
     if(key!==0 && key > rates.length){rates[key].min=Number(rates[key-1].max)+1}
     this.setState({rates});
@@ -61,6 +62,7 @@ class RatesSection extends PureComponent {
           />
           <AddRateForm
             rates={this.state.rates}
+            updateRate={this.updateRate}
             addRate={this.addRate}
           />
         <button>Submit</button>

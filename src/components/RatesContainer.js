@@ -12,6 +12,7 @@ class RatesContainer extends PureComponent {
 
   renderRate = (index) => {
     const rate = this.props.rates[index];
+    console.log(index)
     return (
       <div className="rate-edit" key={index}>
         {rate.min}  ---
