@@ -13,11 +13,11 @@ import 'react-datepicker/dist/react-datepicker.css';
 class RatesSection extends PureComponent {
   state = {
     visible: false,
-    rates: this.props.rates,
     clickAdd: false,
-    minCommit: this.props.minCommit,
-    charge: this.props.charge,
-    startDate : null
+    startDate : null,
+    // rates: this.props.rates,
+    // minCommit: this.props.minCommit,
+    // charge: this.props.charge,
   }
 
   handleChange = (date) => {
@@ -28,8 +28,8 @@ class RatesSection extends PureComponent {
   }
 
   updateMinCommit = (number) => {
-    let rates = this.state.rates
-    rates = rates.map((rate) => {
+    const {serviceIndex, clientIndex, setNewMinCommit, setNewCharge, setNewRates, rates} = this.props
+    let updatedRates = rates.map((rate) => {
       const plusOne = rate.min === 0 ? 0 : 1
       const minLarger = rate.min > number
       const maxLarger = rate.max >= number
@@ -48,40 +48,39 @@ class RatesSection extends PureComponent {
       }
     })
 
-    let charge = this.state.charge
-    charge = rates.map(rate=>rate.sum).reduce((prev,next) => prev + next)
-    console.log('charge',charge)
-    this.setState({
-      minCommit: number,
-      rates,
-      charge
-    })
+    let updatedCharge = updatedRates.map(rate=>rate.sum).reduce((prev,next) => prev + next, 0)
+    setNewMinCommit(serviceIndex, clientIndex, number)
+    setNewCharge(serviceIndex, clientIndex, updatedCharge)
+    setNewRates(serviceIndex, clientIndex, updatedRates)
   }
 
   addRate = (rate) => {
-    const rates = [...this.state.rates]
-    rates.push(rate);
-    this.setState({rates});
+    const {serviceIndex, clientIndex, rates, setNewRates} = this.props
+    const updatedRates = [...rates]
+    updatedRates.push(rate);
+    setNewRates(serviceIndex, clientIndex, updatedRates)
   }
 
   updateRate = (key,updateRate) => {
-    const rates = [...this.state.rates]
-    rates[key] = updateRate
-    if(key!==rates.length-1){
-      rates[key+1].min = Number(rates[key].max)+1
+    const {serviceIndex, clientIndex, rates, setNewRates} = this.props
+    const updatedRates = [...rates]
+    updatedRates[key] = updateRate
+    if(key!==updatedRates.length-1){
+      updatedRates[key+1].min = Number(updatedRates[key].max)+1
     }
-    this.setState({rates})
+    setNewRates(serviceIndex, clientIndex, updatedRates)
   }
 
   removeRate = (key) => {
-    let rates = [...this.state.rates]
-    rates = rates.filter((value, index) => {
+    const {serviceIndex, clientIndex, rates, setNewRates} = this.props
+    let updatedRates = [...rates]
+    updatedRates = updatedRates.filter((value, index) => {
       return index !== Number(key)
     })
-    console.log(rates)
-    if(key===0 && rates.length > 1){rates[0].min=0}
-    if(key!==0 && key > rates.length){rates[key].min=Number(rates[key-1].max)+1}
-    this.setState({rates});
+    console.log(updatedRates)
+    if(key===0 && updatedRates.length > 1){updatedRates[0].min=0}
+    if(key!==0 && key > updatedRates.length){updatedRates[key].min=Number(updatedRates[key-1].max)+1}
+    setNewRates(serviceIndex, clientIndex, updatedRates)
   }
 
 
@@ -95,6 +94,7 @@ class RatesSection extends PureComponent {
   }
 
   render() {
+    const {rates, minCommit, charge} = this.props
     return (
       <div className="rate-form">
         <p>Here is the form:</p>
@@ -108,22 +108,22 @@ class RatesSection extends PureComponent {
           Billing
         </p>
           <RatesContainer
-            rates={this.state.rates}
+            rates={rates}
             updateRate={this.updateRate}
             removeRate={this.removeRate}
-            minCommit={this.state.minCommit}
+            minCommit={minCommit}
           />
           <button onClick={(e) => this.handleClick(e)}>{this.state.clickAdd ? 'x' : '+'}</button>
           { this.state.clickAdd &&
           <AddRateForm
-            rates={this.state.rates}
+            rates={rates}
             updateRate={this.updateRate}
             addRate={this.addRate}
           />}
           <MinimumCommit
-            minCommit={this.state.minCommit}
+            minCommit={minCommit}
             updateMinCommit={this.updateMinCommit}
-            charge={this.state.charge}
+            charge={charge}
           />
         <button>Submit</button>
       </div>

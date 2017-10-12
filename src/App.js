@@ -89,8 +89,32 @@ class App extends Component {
   }
 
   handleOverride = (serviceIndex,clientIndex) => {
-    const services = {...this.state.services}
+    const services = [...this.state.services]
     services[serviceIndex].clients[clientIndex].override = true
+    this.setState({
+      services
+    })
+  }
+
+  setNewRates = (serviceIndex,clientIndex,rates) => {
+    const services = [...this.state.services]
+    services[serviceIndex].clients[clientIndex].rates = rates
+    this.setState({
+      services
+    })
+  }
+
+  setNewMinCommit = (serviceIndex,clientIndex,minCommit) => {
+    const services = [...this.state.services]
+    services[serviceIndex].clients[clientIndex].minCommit = minCommit
+    this.setState({
+      services
+    })
+  }
+
+  setNewCharge = (serviceIndex,clientIndex,charge) => {
+    const services = [...this.state.services]
+    services[serviceIndex].clients[clientIndex].charge = charge
     this.setState({
       services
     })
@@ -116,9 +140,12 @@ class App extends Component {
         {visibleClient && <RatesPage
           service={visibleService.name}
           {...visibleClient}
-          handleOverride={this.handleOverride}
           serviceIndex={serviceIndex}
           clientIndex={clientIndex}
+          handleOverride={this.handleOverride}
+          setNewRates={this.setNewRates}
+          setNewMinCommit={this.setNewMinCommit}
+          setNewCharge={this.setNewCharge}
          />}
       </div>
     );
