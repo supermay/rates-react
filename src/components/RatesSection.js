@@ -109,11 +109,12 @@ class RatesSection extends PureComponent {
             updateRate={this.updateRate}
             addRate={this.addRate}
           />}
+          {this.state.rates.length!==0 &&
           <MinimumCommit
             minCommit={this.state.minCommit}
             updateMinCommit={this.updateMinCommit}
             charge={this.state.charge}
-           />
+          />}
         <button>Submit</button>
       </div>
     )

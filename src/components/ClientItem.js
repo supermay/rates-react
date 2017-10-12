@@ -13,7 +13,7 @@ class ClientItem extends PureComponent {
   render() {
     const { name, index, selectClient, visible, minCommit, charge } = this.props
     return (
-      <div className="service-item">
+      <div className="client-item">
         <p onClick={() => selectClient(index)}>{name ? name : 'Global Rates'}</p>
         {visible &&
           <RatesPage
