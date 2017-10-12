@@ -3,29 +3,21 @@ import RatesPageTitle from './RatesPageTitle';
 import RatesSection from './RatesSection';
 
 class RatesPage extends PureComponent {
-  state = {
-    override: this.props.override
-  }
-
-  handleOverride = () => {
-    console.log('overriding process')
-    this.setState({override: true})
-    return (<RatesSection rates={this.props.rates}/>)
-  }
-
   render(){
+    const { service, client, handleOverride, override } = this.props
+
     let showContent;
-    if(!this.props.client){
+    if(!this.props.client || override){
       showContent = <RatesSection rates={this.props.rates}/>
     } else {
-      showContent = <button onClick={(e) => this.handleOverride(e)}>OVERRIDE</button>
+      showContent = <button onClick={(e) => handleOverride(e)}>OVERRIDE</button>
     }
-    
+
     return(
       <div className="rates-page">
         <RatesPageTitle
-          service={this.props.service}
-          client={this.props.client}
+          service={service}
+          client={client}
         />
         {showContent}
       </div>

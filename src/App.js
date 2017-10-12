@@ -17,7 +17,7 @@ const globalRates = [
   {min:101, max: '∞', unitPrice: 0.25, intervalPrice: 0.00},
 ]
 
-const globalObject = {rates: globalRates, visible: false}
+const globalObject = {rates: globalRates, visible: true}
 
 const services = [
   {name: 'A1 VM - EU West', visible: false, global: globalObject, clients: clients.map(client => Object.assign({},client))},

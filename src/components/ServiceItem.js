@@ -7,15 +7,24 @@ class ServiceItem extends PureComponent {
   }
 
   selectClient = (index) => {
-    this.setState({
-      clients: this.state.clients.map((v,i) => {
-        return {
-          ...v, visible: i === index
-        }
+    if(this.state.clients[index].visible){
+      this.setState({
+        clients: this.state.clients.map((v,i) => {
+          return {
+            ...v, visible: false
+          }
+        })
       })
-    })
+    } else {
+      this.setState({
+        clients: this.state.clients.map((v,i) => {
+          return {
+            ...v, visible: i === index
+          }
+        })
+      })
+    }
   }
-
 
   render() {
     const { name, visible, index, selectService } = this.props

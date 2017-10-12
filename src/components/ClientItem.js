@@ -2,6 +2,14 @@ import React, { PureComponent } from 'react';
 import RatesPage from './RatesPage';
 
 class ClientItem extends PureComponent {
+  state = {
+    override: this.props.override
+  }
+
+  handleOverride = () => {
+    this.setState({override: true})
+  }
+
   render() {
     const { name, index, selectClient, visible } = this.props
     return (
@@ -12,7 +20,8 @@ class ClientItem extends PureComponent {
             rates={this.props.rates}
             service={this.props.service}
             client={this.props.name}
-            override={this.props.override}
+            override={this.state.override}
+            handleOverride={this.handleOverride}
           />}
       </div>
     )
