@@ -6,14 +6,19 @@ class AddRateForm extends PureComponent {
     event.preventDefault();
     const { rates } = this.props;
     const isFirst = rates.length === 0
+    // const lastMax = Number(rates[rates.length-1].max)
     const rate = {
-      min: isFirst ? 0 : (Number(rates[rates.length-1].max)+1),
+      min: isFirst ? 0 : (rates[rates.length-1].max === '∞' ? rates[rates.length-1].min : Number(rates[rates.length-1].max)+1),
       max: this.max.value==='' ? '∞' : this.max.value,
       unitPrice: this.unitPrice.value,
       intervalPrice: this.intervalPrice.value,
       createdAt: Date.now()
     }
-    this.props.addRate(rate)
+    if(!isFirst && rates[rates.length-1].max===rate.max && rates[rates.length-1].min===rate.min){
+      this.props.updateRate(rates.length-1,rate)
+    } else {
+      this.props.addRate(rate)
+    }
     this.rateForm.reset()
   }
 
