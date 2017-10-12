@@ -2,21 +2,12 @@ import React, { PureComponent } from 'react';
 import RatesPage from './RatesPage';
 
 class ClientItem extends PureComponent {
-  state = {
-    visible: false
-  }
-
-  handleClick = () => {
-    this.setState({visible: !this.state.visible})
-    console.log('clicked!')
-  }
-
-
   render() {
+    const { name, index, selectClient, visible } = this.props
     return (
       <div className="service-item">
-        <p onClick={(e) => this.handleClick(e)}>{this.props.name}</p>
-        {this.state.visible &&
+        <p onClick={() => selectClient(index)}>{name ? name : 'Global Rates'}</p>
+        {visible &&
           <RatesPage
             rates={this.props.rates}
             service={this.props.service}

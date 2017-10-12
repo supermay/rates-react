@@ -1,15 +1,33 @@
 import React, { PureComponent } from 'react';
 import Client from './Client'
-import RatesPage from './RatesPage'
 
 class ServiceItem extends PureComponent {
+  state = {
+    clients: this.props.clients.concat(this.props.global)
+  }
+
+  selectClient = (index) => {
+    this.setState({
+      clients: this.state.clients.map((v,i) => {
+        return {
+          ...v, visible: i === index
+        }
+      })
+    })
+  }
+
+
   render() {
-    const { name, clients, visible, index, selectService } = this.props
+    const { name, visible, index, selectService } = this.props
     return (
       <div className="service-item">
         <p onClick={() => selectService(index)}>{name}</p>
-        {visible && <RatesPage rates={this.props.global} service={name}/> }
-        {visible && <Client clients={clients} service={name}/>}
+        {visible &&
+          <Client
+            clients={this.state.clients}
+            selectClient={this.selectClient}
+            service={name}
+          />}
       </div>
     )
   }
