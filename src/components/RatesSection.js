@@ -74,6 +74,7 @@ class RatesSection extends PureComponent {
             rates={this.state.rates}
             updateRate={this.updateRate}
             removeRate={this.removeRate}
+            minCommit={this.state.minCommit}
           />
           <button onClick={(e) => this.handleClick(e)}>{this.state.clickAdd ? 'x' : '+'}</button>
           { this.state.clickAdd &&
