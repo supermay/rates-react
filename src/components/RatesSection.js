@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import AddRateForm from './AddRateForm';
 import RatesContainer from './RatesContainer';
+import MinimumCommit from './MinimumCommit';
 
 // import DayPicker from 'react-day-picker';
 import DayPickerInput from "react-day-picker/DayPickerInput";
@@ -12,6 +13,13 @@ class RatesSection extends PureComponent {
     visible: false,
     rates: this.props.rates,
     clickAdd: false,
+    minCommit: this.props.minCommit
+  }
+
+  updateMinCommit = (number) => {
+    this.setState({
+      minCommit: number
+    })
   }
 
   addRate = (rate) => {
@@ -28,6 +36,7 @@ class RatesSection extends PureComponent {
     }
     this.setState({rates})
   }
+
 
   removeRate = (key) => {
     let rates = [...this.state.rates]
@@ -73,6 +82,10 @@ class RatesSection extends PureComponent {
             updateRate={this.updateRate}
             addRate={this.addRate}
           />}
+          <MinimumCommit
+            minCommit={this.state.minCommit}
+            updateMinCommit={this.updateMinCommit}
+           />
         <button>Submit</button>
       </div>
     )
