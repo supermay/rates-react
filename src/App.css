@@ -1,0 +1,14 @@
+.service {
+  float: left;
+  width: 25%;
+}
+
+.client {
+  display: inline-block;
+  width: 25%;
+}
+
+.rates-page {
+  float: right;
+  width: 50%;
+}

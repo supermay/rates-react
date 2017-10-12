@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import Service from './components/Service'
+import Client from './components/Client';
+import RatesPage from './components/RatesPage';
 
+import './App.css';
 // const form = [{date:, rates:[]}]
 
 const clients = [
@@ -20,10 +23,10 @@ const globalRates = [
 const globalObject = {rates: globalRates, visible: true, minCommit: 0, charge: 0}
 
 const services = [
-  {name: 'A1 VM - EU West', visible: false, global: globalObject, clients: clients.map(client => Object.assign({},client))},
-  {name: 'A1 VM - EU North', visible: false, global: globalObject, clients: clients.map(client => Object.assign({},client))},
-  {name: 'C1 VM - EU North', visible: false, global: globalObject, clients: clients.map(client => Object.assign({},client))},
-  {name: 'C1 VM - EU East', visible: false, global: globalObject, clients: clients.map(client => Object.assign({},client))}
+  {name: 'A1 VM - EU West', visible: false, global: globalObject, clients: [global].concat(clients.map(client => Object.assign({},client)))},
+  {name: 'A1 VM - EU North', visible: false, global: globalObject, clients: [global].concat(clients.map(client => Object.assign({},client)))},
+  {name: 'C1 VM - EU North', visible: false, global: globalObject, clients: [global].concat(clients.map(client => Object.assign({},client)))},
+  {name: 'C1 VM - EU East', visible: false, global: globalObject, clients: [global].concat(clients.map(client => Object.assign({},client)))}
 ]
 
 class App extends Component {
@@ -49,13 +52,74 @@ class App extends Component {
     }
   }
 
+  selectClient = (index) => {
+    const visibleServiceIndex = this.state.services.findIndex(service => service.visible)
+    const clients = this.state.services[visibleServiceIndex].clients
+    if(clients[index].visible){
+      const services = this.state.services.map((vs,is) => {
+        if(is !== visibleServiceIndex) {
+          return vs
+        } else {
+          return {...vs, clients: clients.map((vc,ic) => {
+            return {
+              ...vc, visible: false
+            }}
+          )}
+        }
+      })
+      this.setState({
+        services
+      })
+    } else {
+      const services = this.state.services.map((vs,is) => {
+        if(is !== visibleServiceIndex) {
+          return vs
+        } else {
+          return {...vs, clients: clients.map((vc,ic) => {
+            return {
+              ...vc, visible: ic === index
+            }}
+          )}
+        }
+      })
+      this.setState({
+        services
+      })
+    }
+  }
+
+  handleOverride = (serviceIndex,clientIndex) => {
+    const services = {...this.state.services}
+    services[serviceIndex].clients[clientIndex].override = true
+    this.setState({
+      services
+    })
+  }
+
   render() {
+    const {services} = this.state
+    const visibleService = services.find(service=>service.visible)
+    const serviceIndex = services.findIndex(service=>service.visible)
+    const isServiceVisible = visibleService !== undefined
+    const clientIndex = isServiceVisible ? visibleService.clients.findIndex(client=>client.visible) : false
+    const visibleClient = isServiceVisible ? visibleService.clients.find(client=>client.visible) : false
     return (
       <div className="App">
         <Service
-          services={this.state.services}
+          services={services}
           selectService={this.selectService}
         />
+        {visibleService && <Client
+          clients={visibleService.clients}
+          selectClient={this.selectClient}
+        />}
+        {visibleClient && <RatesPage
+          service={visibleService.name}
+          {...visibleClient}
+          handleOverride={this.handleOverride}
+          serviceIndex={serviceIndex}
+          clientIndex={clientIndex}
+         />}
       </div>
     );
   }

@@ -4,8 +4,10 @@ import RatesContainer from './RatesContainer';
 import MinimumCommit from './MinimumCommit';
 
 // import DayPicker from 'react-day-picker';
-import DayPickerInput from "react-day-picker/DayPickerInput";
-import 'react-day-picker/lib/style.css';
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
+
+import 'react-datepicker/dist/react-datepicker.css';
 
 
 class RatesSection extends PureComponent {
@@ -14,7 +16,15 @@ class RatesSection extends PureComponent {
     rates: this.props.rates,
     clickAdd: false,
     minCommit: this.props.minCommit,
-    charge: this.props.charge
+    charge: this.props.charge,
+    startDate : null
+  }
+
+  handleChange = (date) => {
+    this.setState({
+      startDate: date
+    });
+    console.log(date)
   }
 
   updateMinCommit = (number) => {
@@ -63,7 +73,6 @@ class RatesSection extends PureComponent {
     this.setState({rates})
   }
 
-
   removeRate = (key) => {
     let rates = [...this.state.rates]
     rates = rates.filter((value, index) => {
@@ -89,10 +98,12 @@ class RatesSection extends PureComponent {
     return (
       <div className="rate-form">
         <p>Here is the form:</p>
-        <label>Effective date:  </label>
-        <DayPickerInput placeholder="DD/MM/YYYY" format="DD/MM/YYYY" />
-        <button onClick={this.pickDay}>Add Revision</button>
-        { this.state.visible && <DayPickerInput placeholder="DD/MM/YYYY" format="DD/MM/YYYY" />}
+        <label>Effective date:
+          <DatePicker
+            selected={this.state.startDate}
+            onChange={this.handleChange}
+          />
+        </label>
         <p>
           Billing
         </p>
@@ -109,12 +120,11 @@ class RatesSection extends PureComponent {
             updateRate={this.updateRate}
             addRate={this.addRate}
           />}
-          {this.state.rates.length!==0 &&
           <MinimumCommit
             minCommit={this.state.minCommit}
             updateMinCommit={this.updateMinCommit}
             charge={this.state.charge}
-          />}
+          />
         <button>Submit</button>
       </div>
     )
