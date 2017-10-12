@@ -4,11 +4,11 @@ import RatesSection from './RatesSection';
 
 class RatesPage extends PureComponent {
   render(){
-    const { service, client, handleOverride, override, minCommit } = this.props
+    const { service, client, handleOverride, override, minCommit, charge } = this.props
 
     let showContent;
     if(!this.props.client || override){
-      showContent = <RatesSection rates={this.props.rates} minCommit={minCommit} />
+      showContent = <RatesSection rates={this.props.rates} minCommit={minCommit} charge={charge} />
     } else {
       showContent = <button onClick={(e) => handleOverride(e)}>OVERRIDE</button>
     }

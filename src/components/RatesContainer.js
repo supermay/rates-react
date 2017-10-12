@@ -11,20 +11,20 @@ class RatesContainer extends PureComponent {
   }
 
   renderRate = (index) => {
-    const { min, max, unitPrice, intervalPrice } = this.props.rates[index]
-    const minCommit = this.props.minCommit
-    const plusOne = min === 0 ? 0 : 1
-    const minLarger = min > minCommit
-    const maxLarger = max >= minCommit
-    let sum;
-    if(minCommit===0){sum=0}
-    if(minLarger){
-      sum=0
-    } else if(!minLarger && maxLarger){
-      sum= Number((minCommit - min + plusOne) * unitPrice) + Number(intervalPrice)
-    } else {
-      sum = Number((max - min + plusOne) * unitPrice) + Number(intervalPrice)
-    }
+    const { min, max, unitPrice, intervalPrice, sum } = this.props.rates[index]
+    // const minCommit = this.props.minCommit
+    // const plusOne = min === 0 ? 0 : 1
+    // const minLarger = min > minCommit
+    // const maxLarger = max >= minCommit
+    // let sum;
+    // if(minCommit===0){sum=0}
+    // if(minLarger){
+    //   sum=0
+    // } else if(!minLarger && maxLarger){
+    //   sum= Number((minCommit - min + plusOne) * unitPrice) + Number(intervalPrice)
+    // } else {
+    //   sum = Number((max - min + plusOne) * unitPrice) + Number(intervalPrice)
+    // }
 
     console.log(index)
     return (

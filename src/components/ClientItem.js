@@ -11,7 +11,7 @@ class ClientItem extends PureComponent {
   }
 
   render() {
-    const { name, index, selectClient, visible, minCommit } = this.props
+    const { name, index, selectClient, visible, minCommit, charge } = this.props
     return (
       <div className="service-item">
         <p onClick={() => selectClient(index)}>{name ? name : 'Global Rates'}</p>
@@ -23,6 +23,7 @@ class ClientItem extends PureComponent {
             override={this.state.override}
             handleOverride={this.handleOverride}
             minCommit={minCommit}
+            charge={charge}
           />}
       </div>
     )

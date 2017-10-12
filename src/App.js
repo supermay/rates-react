@@ -4,11 +4,11 @@ import Service from './components/Service'
 // const form = [{date:, rates:[]}]
 
 const clients = [
-  {name: 'client1', rates: [], visible: false, override: false, minCommit: 0},
-  {name: 'client2', rates: [], visible: false, override: false, minCommit: 0},
-  {name: 'client3', rates: [], visible: false, override: false, minCommit: 0},
-  {name: 'client4', rates: [], visible: false, override: false, minCommit: 0},
-  {name: 'client5', rates: [], visible: false, override: false, minCommit: 0},
+  {name: 'client1', rates: [], visible: false, override: false, minCommit: 0, charge: 0},
+  {name: 'client2', rates: [], visible: false, override: false, minCommit: 0, charge: 0},
+  {name: 'client3', rates: [], visible: false, override: false, minCommit: 0, charge: 0},
+  {name: 'client4', rates: [], visible: false, override: false, minCommit: 0, charge: 0},
+  {name: 'client5', rates: [], visible: false, override: false, minCommit: 0, charge: 0},
 ]
 
 const globalRates = [
@@ -17,7 +17,7 @@ const globalRates = [
   {min:101, max: '∞', unitPrice: 0.25, intervalPrice: 0.00, sum: 0 },
 ]
 
-const globalObject = {rates: globalRates, visible: true, minCommit: 0}
+const globalObject = {rates: globalRates, visible: true, minCommit: 0, charge: 0}
 
 const services = [
   {name: 'A1 VM - EU West', visible: false, global: globalObject, clients: clients.map(client => Object.assign({},client))},

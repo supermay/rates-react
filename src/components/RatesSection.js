@@ -13,12 +13,38 @@ class RatesSection extends PureComponent {
     visible: false,
     rates: this.props.rates,
     clickAdd: false,
-    minCommit: this.props.minCommit
+    minCommit: this.props.minCommit,
+    charge: this.props.charge
   }
 
   updateMinCommit = (number) => {
+    let rates = this.state.rates
+    rates = rates.map((rate) => {
+      const plusOne = rate.min === 0 ? 0 : 1
+      const minLarger = rate.min > number
+      const maxLarger = rate.max >= number
+      let sum;
+      if(number===0){sum=0}
+      if(minLarger){
+        sum=0
+      } else if(!minLarger && maxLarger){
+        sum= Number((number - rate.min + plusOne) * rate.unitPrice) + Number(rate.intervalPrice)
+      } else {
+        sum = Number((rate.max - rate.min + plusOne) * rate.unitPrice) + Number(rate.intervalPrice)
+      }
+      return {
+        ...rate,
+        sum: sum
+      }
+    })
+
+    let charge = this.state.charge
+    charge = rates.map(rate=>rate.sum).reduce((prev,next) => prev + next)
+    console.log('charge',charge)
     this.setState({
-      minCommit: number
+      minCommit: number,
+      rates,
+      charge
     })
   }
 
@@ -86,6 +112,7 @@ class RatesSection extends PureComponent {
           <MinimumCommit
             minCommit={this.state.minCommit}
             updateMinCommit={this.updateMinCommit}
+            charge={this.state.charge}
            />
         <button>Submit</button>
       </div>

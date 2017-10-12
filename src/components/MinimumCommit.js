@@ -18,6 +18,7 @@ class MinimumCommit extends PureComponent {
           onChange={(e) => this.handleEvent(e)}
         />
         ---------->>
+        {this.props.charge}
       </div>
     )
   }
