@@ -6,7 +6,7 @@ class Service extends PureComponent {
     const { selectService } = this.props
     return (
       <div className="service">
-        <p>service</p>
+        <h1>Services</h1>
         {this.props.services.map((service,index)=> <ServiceItem key={index} index={index} {...service} selectService={selectService} />)}
       </div>
     )

@@ -4,8 +4,8 @@ class RatesPageTitle extends PureComponent {
   render(){
     return(
       <div className="rates-page-title">
-        <p>{this.props.service}</p>
-        <p>{this.props.client ? this.props.client : 'Global Rates'}</p>
+        <h2>{this.props.service}</h2>
+        <h3>{this.props.client ? this.props.client : 'Global Rates'}</h3>
       </div>
     )
   }

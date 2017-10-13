@@ -4,13 +4,14 @@ import RatesSection from './RatesSection';
 
 class RatesPage extends PureComponent {
   render(){
+    // name is the name of the client, globalRates doesn't have a name attribute
     const { service, name, rates, override, minCommit, charge, handleOverride,
             serviceIndex, clientIndex,
             setNewRates, setNewMinCommit, setNewCharge
           } = this.props
 
     let showContent;
-    if(!this.props.client || override){
+    if(!this.props.name || override){
       showContent = <RatesSection
         rates={rates}
         minCommit={minCommit}
