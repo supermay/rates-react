@@ -58,6 +58,7 @@ class RatesSection extends PureComponent {
     const {serviceIndex, clientIndex, rates, setNewRates} = this.props
     const updatedRates = [...rates]
     updatedRates.push(rate);
+    console.log('Rates Section','Service Index',serviceIndex,'Client Index',clientIndex)
     setNewRates(serviceIndex, clientIndex, updatedRates)
   }
 
@@ -167,16 +168,18 @@ class RatesSection extends PureComponent {
           />
           <button onClick={(e) => this.handleClick(e)}>{this.state.clickAdd ? 'x' : '+'}</button>
           { this.state.clickAdd &&
-          <AddRateForm
-            rates={rates}
-            updateRate={this.updateRate}
-            addRate={this.addRate}
-          />}
-          <MinimumCommit
-            minCommit={minCommit}
-            updateMinCommit={this.updateMinCommit}
-            charge={charge}
-          />
+            <AddRateForm
+              rates={rates}
+              updateRate={this.updateRate}
+              addRate={this.addRate}
+            />
+          }
+            <MinimumCommit
+              minCommit={minCommit}
+              updateMinCommit={this.updateMinCommit}
+              charge={charge}
+              rates={rates}
+            />
         <button>Submit</button>
       </div>
     )

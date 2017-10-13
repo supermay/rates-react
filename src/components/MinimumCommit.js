@@ -9,7 +9,7 @@ class MinimumCommit extends PureComponent {
   render(){
     return (
       <div className="minimum-commit">
-        <input type="checkbox"/>
+        {/* <input type="checkbox"/> */}
         Minimum Commit
         <input
           type="text"

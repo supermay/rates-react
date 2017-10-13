@@ -14,7 +14,7 @@ class AddRateForm extends PureComponent {
       intervalPrice: this.intervalPrice.value,
       createdAt: Date.now()
     }
-    if(!isFirst && rates[rates.length-1].max===rate.max && rates[rates.length-1].min===rate.min){
+    if(!isFirst && rates[rates.length-1].min===rate.min){
       this.props.updateRate(rates.length-1,rate)
     } else {
       this.props.addRate(rate)
