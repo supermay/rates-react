@@ -55,11 +55,32 @@ class RatesSection extends PureComponent {
   }
 
   addRate = (rate) => {
-    const {serviceIndex, clientIndex, rates, setNewRates} = this.props
-    const updatedRates = [...rates]
-    updatedRates.push(rate);
-    console.log('Rates Section','Service Index',serviceIndex,'Client Index',clientIndex)
+    const {serviceIndex, clientIndex, rates, minCommit, setNewRates, setNewCharge} = this.props
+    let updatedRates = [...rates]
+    updatedRates = updatedRates.concat(rate);
+
+    updatedRates = updatedRates.map((rate) => {
+      const plusOne = rate.min === 0 ? 0 : 1
+      const minLarger = rate.min > minCommit
+      const maxLarger = rate.max >= minCommit
+      let sum;
+      if(minCommit===0){sum=0}
+      if(minLarger){
+        sum=0
+      } else if(!minLarger && maxLarger){
+        sum= Number((minCommit - rate.min + plusOne) * rate.unitPrice) + Number(rate.intervalPrice)
+      } else {
+        sum = Number((rate.max - rate.min + plusOne) * rate.unitPrice) + Number(rate.intervalPrice)
+      }
+      return {
+        ...rate,
+        sum: sum
+      }
+    })
+    let updatedCharge = updatedRates.map(rate=>rate.sum).reduce((prev,next) => prev + next, 0)
+
     setNewRates(serviceIndex, clientIndex, updatedRates)
+    setNewCharge(serviceIndex, clientIndex, updatedCharge)
   }
 
   updateRate = (key,updateRate) => {
@@ -148,7 +169,6 @@ class RatesSection extends PureComponent {
     const {rates, minCommit, charge} = this.props
     return (
       <div className="rate-form">
-        <p>Here is the form:</p>
         <label>Effective date:
           <DatePicker
             selected={this.state.startDate}
