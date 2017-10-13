@@ -14,7 +14,7 @@ class RatesSection extends PureComponent {
   state = {
     visible: false,
     clickAdd: false,
-    startDate : null,
+    startDate : moment(),
     // rates: this.props.rates,
     // minCommit: this.props.minCommit,
     // charge: this.props.charge,
@@ -174,12 +174,14 @@ class RatesSection extends PureComponent {
               addRate={this.addRate}
             />
           }
+          {rates.length ?
             <MinimumCommit
               minCommit={minCommit}
               updateMinCommit={this.updateMinCommit}
               charge={charge}
               rates={rates}
-            />
+            /> : null
+          }
         <button>Submit</button>
       </div>
     )
