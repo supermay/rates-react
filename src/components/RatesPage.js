@@ -4,7 +4,10 @@ import RatesSection from './RatesSection';
 
 class RatesPage extends PureComponent {
   render(){
-    const { service, name, rates, override, minCommit, charge, handleOverride, serviceIndex, clientIndex, setNewRates, setNewMinCommit, setNewCharge } = this.props
+    const { service, name, rates, override, minCommit, charge, handleOverride,
+            serviceIndex, clientIndex,
+            setNewRates, setNewMinCommit, setNewCharge
+          } = this.props
 
     let showContent;
     if(!this.props.client || override){

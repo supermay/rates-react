@@ -23,10 +23,10 @@ const globalRates = [
 const globalObject = {rates: globalRates, visible: true, minCommit: 0, charge: 0}
 
 const services = [
-  {name: 'A1 VM - EU West', visible: false, global: globalObject, clients: [global].concat(clients.map(client => Object.assign({},client)))},
-  {name: 'A1 VM - EU North', visible: false, global: globalObject, clients: [global].concat(clients.map(client => Object.assign({},client)))},
-  {name: 'C1 VM - EU North', visible: false, global: globalObject, clients: [global].concat(clients.map(client => Object.assign({},client)))},
-  {name: 'C1 VM - EU East', visible: false, global: globalObject, clients: [global].concat(clients.map(client => Object.assign({},client)))}
+  {name: 'A1 VM - EU West', visible: false, global: globalObject, clients: [globalObject].concat(clients.map(client => Object.assign({},client)))},
+  {name: 'A1 VM - EU North', visible: false, global: globalObject, clients: [globalObject].concat(clients.map(client => Object.assign({},client)))},
+  {name: 'C1 VM - EU North', visible: false, global: globalObject, clients: [globalObject].concat(clients.map(client => Object.assign({},client)))},
+  {name: 'C1 VM - EU East', visible: false, global: globalObject, clients: [globalObject].concat(clients.map(client => Object.assign({},client)))}
 ]
 
 class App extends Component {
@@ -127,6 +127,7 @@ class App extends Component {
     const isServiceVisible = visibleService !== undefined
     const clientIndex = isServiceVisible ? visibleService.clients.findIndex(client=>client.visible) : false
     const visibleClient = isServiceVisible ? visibleService.clients.find(client=>client.visible) : false
+    console.log(services, visibleService)
     return (
       <div className="App">
         <Service
