@@ -23,10 +23,10 @@ const globalRates = [
 const globalObject = {rates: globalRates, visible: true, minCommit: 0, charge: 0}
 
 const services = [
-  {name: 'A1 VM - EU West', visible: false, clients: [globalObject].concat(clients.map(client => Object.assign({},client)))},
-  {name: 'A1 VM - EU North', visible: false, clients: [globalObject].concat(clients.map(client => Object.assign({},client)))},
-  {name: 'C1 VM - EU North', visible: false, clients: [globalObject].concat(clients.map(client => Object.assign({},client)))},
-  {name: 'C1 VM - EU East', visible: false, clients: [globalObject].concat(clients.map(client => Object.assign({},client)))}
+  {name: 'A1 VM - EU West', visible: false, clients: [Object.assign({},globalObject)].concat(clients.map(client => Object.assign({},client)))},
+  {name: 'A1 VM - EU North', visible: false, clients: [Object.assign({},globalObject)].concat(clients.map(client => Object.assign({},client)))},
+  {name: 'C1 VM - EU North', visible: false, clients: [Object.assign({},globalObject)].concat(clients.map(client => Object.assign({},client)))},
+  {name: 'C1 VM - EU East', visible: false, clients: [Object.assign({},globalObject)].concat(clients.map(client => Object.assign({},client)))}
 ]
 
 class App extends Component {
@@ -157,7 +157,7 @@ class App extends Component {
           serviceIndex={serviceIndex}
           clientIndex={clientIndex}
           handleOverride={this.handleOverride}
-          removeOverride={this.removeOverride}          
+          removeOverride={this.removeOverride}
           setNewRates={this.setNewRates}
           setNewMinCommit={this.setNewMinCommit}
           setNewCharge={this.setNewCharge}
