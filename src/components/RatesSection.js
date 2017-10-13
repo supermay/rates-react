@@ -62,25 +62,77 @@ class RatesSection extends PureComponent {
   }
 
   updateRate = (key,updateRate) => {
-    const {serviceIndex, clientIndex, rates, setNewRates} = this.props
-    const updatedRates = [...rates]
+    const {serviceIndex, clientIndex, minCommit, rates, setNewRates, setNewCharge} = this.props
+    let updatedRates = [...rates]
     updatedRates[key] = updateRate
+    updatedRates = updatedRates.map((rate) => {
+      const plusOne = rate.min === 0 ? 0 : 1
+      const minLarger = rate.min > minCommit
+      const maxLarger = rate.max >= minCommit
+      let sum;
+      if(minCommit===0){sum=0}
+      if(minLarger){
+        sum=0
+      } else if(!minLarger && maxLarger){
+        sum= Number((minCommit - rate.min + plusOne) * rate.unitPrice) + Number(rate.intervalPrice)
+      } else {
+        sum = Number((rate.max - rate.min + plusOne) * rate.unitPrice) + Number(rate.intervalPrice)
+      }
+      return {
+        ...rate,
+        sum: sum
+      }
+    })
+    let updatedCharge = updatedRates.map(rate=>rate.sum).reduce((prev,next) => prev + next, 0)
+
     if(key!==updatedRates.length-1){
       updatedRates[key+1].min = Number(updatedRates[key].max)+1
     }
     setNewRates(serviceIndex, clientIndex, updatedRates)
+    setNewCharge(serviceIndex, clientIndex, updatedCharge)
+
+    // this.updateMinCommit(minCommit)
   }
 
   removeRate = (key) => {
-    const {serviceIndex, clientIndex, rates, setNewRates} = this.props
+    const {serviceIndex, clientIndex, rates, setNewRates, setNewCharge, minCommit} = this.props
     let updatedRates = [...rates]
     updatedRates = updatedRates.filter((value, index) => {
       return index !== Number(key)
     })
     console.log(updatedRates)
-    if(key===0 && updatedRates.length > 1){updatedRates[0].min=0}
-    if(key!==0 && key > updatedRates.length){updatedRates[key].min=Number(updatedRates[key-1].max)+1}
+    if(rates.length===1){
+      updatedRates=[]
+    } else if(key===0){ //First rate deleted
+      updatedRates[0].min=0
+    } else if (key!==0 && key === updatedRates.length){ //Last rate deleted
+      updatedRates = updatedRates
+    } else {//Middle rate deleted
+      updatedRates[key].min=Number(updatedRates[key-1].max)+1
+    }
+
+    updatedRates = updatedRates.map((rate) => {
+      const plusOne = rate.min === 0 ? 0 : 1
+      const minLarger = rate.min > minCommit
+      const maxLarger = rate.max >= minCommit
+      let sum;
+      if(minCommit===0){sum=0}
+      if(minLarger){
+        sum=0
+      } else if(!minLarger && maxLarger){
+        sum= Number((minCommit - rate.min + plusOne) * rate.unitPrice) + Number(rate.intervalPrice)
+      } else {
+        sum = Number((rate.max - rate.min + plusOne) * rate.unitPrice) + Number(rate.intervalPrice)
+      }
+      return {
+        ...rate,
+        sum: sum
+      }
+    })
+    let updatedCharge = updatedRates.map(rate=>rate.sum).reduce((prev,next) => prev + next, 0)
+
     setNewRates(serviceIndex, clientIndex, updatedRates)
+    setNewCharge(serviceIndex, clientIndex, updatedCharge)
   }
 
 
