@@ -12,3 +12,11 @@
   float: right;
   width: 50%;
 }
+
+.service-item-true {
+  color: blue;
+}
+
+.client-item-true {
+  color: blue;
+}
