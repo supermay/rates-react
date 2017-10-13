@@ -91,8 +91,6 @@ class RatesSection extends PureComponent {
     }
     setNewRates(serviceIndex, clientIndex, updatedRates)
     setNewCharge(serviceIndex, clientIndex, updatedCharge)
-
-    // this.updateMinCommit(minCommit)
   }
 
   removeRate = (key) => {
@@ -107,7 +105,7 @@ class RatesSection extends PureComponent {
     } else if(key===0){ //First rate deleted
       updatedRates[0].min=0
     } else if (key!==0 && key === updatedRates.length){ //Last rate deleted
-      updatedRates = updatedRates
+      // updatedRates stays unchanged
     } else {//Middle rate deleted
       updatedRates[key].min=Number(updatedRates[key-1].max)+1
     }
